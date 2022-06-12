@@ -14,14 +14,15 @@ export default function Sexo() {
         const recinto= document.sexoForm.recinto.value;
           
         console.log(estilo +"  "+promedio+"  "+recinto);
-          backend.getSexo({"data": ["n", recinto, promedio,"n", "n","n","n", "n", "n",estilo]
-              }).then(response => {
+        
+        if(promedio<11){
+          backend.getSexo([recinto, promedio,estilo]
+              ).then(response => {
                 setSexo(response);
               console.log(response);
           })
+        }else{ setSexo("No se permite promedios mayores a 10" );}
   
-
-
     };
     const selectFiltro = ['DIVERGENTE', 'CONVERGENTE', 'ASIMILADOR', 'ACOMODADOR'];
     const selectFiltro1 = ['Turrialba', 'Paraiso'];
@@ -42,7 +43,7 @@ export default function Sexo() {
                         </select>
                     </div>
                     <span>Último promedio para matrícula: </span>
-                    <CustomInput errorMsg="Inserte el promedio" type="number" min="0" className='mt-2' name='promedio' placeholder='Último promedio para matrícula'></CustomInput>
+                    <CustomInput errorMsg="Inserte el promedio" type="number" min="1" max="10" step=".01"  className='mt-2' name='promedio' placeholder='Último promedio para matrícula'></CustomInput>
                     <div>
                         <span>Recinto: </span>
                         <select name="recinto">

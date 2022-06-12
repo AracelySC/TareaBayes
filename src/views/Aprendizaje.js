@@ -14,12 +14,13 @@ export default function Aprendizaje() {
         const promedio= document.aprendizajeForm.promedio.value;
         const sexo= document.aprendizajeForm.sexo.value;
         console.log(sexo +"  "+promedio+"  "+recinto);
-          
-          backend.getAprendizaje2({"data": [sexo, recinto, promedio,"n", "n","n","n", "n", "n","n"]
-              }).then(response => {
+        if(promedio<11){  
+          backend.getAprendizaje2([sexo, promedio, recinto]
+              ).then(response => {
                   setAprendizaje(response);
               console.log(response);
           })
+        }else{ setAprendizaje("No se permite promedios mayores a 10" );}
 
     };
     const selectFiltro = ['F', 'M'];
@@ -41,7 +42,7 @@ export default function Aprendizaje() {
                         </select>
                     </div>
                     <span>Último promedio para matrícula: </span>
-                    <CustomInput errorMsg="Inserte el promedio"  type="number" min="0" className='mt-2' name='promedio' placeholder='Último promedio para matrícula'></CustomInput>
+                    <CustomInput errorMsg="Inserte el promedio"  type="number" min="1" max="10" step=".01" className='mt-2' name='promedio' placeholder='Último promedio para matrícula'></CustomInput>
                     <div>
                         <span>Recinto: </span>
                         <select name="sexo">
