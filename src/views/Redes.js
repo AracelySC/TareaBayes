@@ -10,20 +10,21 @@ export default function Redes() {
     const handleCalculate = (e) => {
         const confiabilidad = document.redes.confiabilidad.value;
         const enlaces = document.redes.enlaces.value;
-        const capacidad = document.redes.capacidad.value;
+        const capacidad = document.redes.capacidad.value+"Ca";
         const costo = document.redes.costo.value;
 
+     console.log(confiabilidad +" "+enlaces+" "+capacidad+" "+costo);
 
-        backend.getRedes({
-            "data": ["N", confiabilidad, enlaces, capacidad, costo, "N"]
-        }).then(response => {
+     if((confiabilidad>1 && confiabilidad<6) || (enlaces>6 && enlaces<20)){
+        backend.getRedes([confiabilidad, enlaces, capacidad, costo]
+        ).then(response => {
             setRed(response);
             console.log(response);
         })
-
-
+    }else{ setRed("Se excedio con los paramemtros de confiabilidad o enlaces" );}
 
     };
+
     const selectFiltro = ['Low', 'Medium', 'High'];
     return (
         <div className='body'>
